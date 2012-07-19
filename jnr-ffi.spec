@@ -3,7 +3,7 @@
 
 Name:     jnr-ffi
 Version:  0.5.10
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 Group:    System Environment/Libraries
 License:  ASL 2.0 or LGPLv3+
@@ -91,6 +91,9 @@ cp pom.xml  $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-jnr-ffi.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
