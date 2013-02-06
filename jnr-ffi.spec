@@ -3,7 +3,7 @@
 
 Name:     jnr-ffi
 Version:  0.7.10
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 Group:    System Environment/Libraries
 License:  ASL 2.0
@@ -85,6 +85,9 @@ install -pm 644 pom.xml  \
 %{_javadocdir}/%{name}
 
 %changelog
+* Wed Feb 06 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 0.7.10-2
+- Depend on objectweb-asm4, not objectweb-asm.
+
 * Tue Feb 05 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 0.7.10-1
 - Update to version 0.7.10.
 - Switch from ant to maven.
