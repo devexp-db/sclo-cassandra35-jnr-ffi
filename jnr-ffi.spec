@@ -17,7 +17,7 @@ BuildRequires: jpackage-utils
 BuildRequires: jffi
 BuildRequires: jnr-x86asm
 BuildRequires: junit
-BuildRequires: objectweb-asm
+BuildRequires: objectweb-asm4
 
 BuildRequires:  maven-local
 BuildRequires:  maven-clean-plugin
@@ -31,7 +31,7 @@ Requires:      java
 Requires:      jpackage-utils
 Requires:      jffi
 Requires:      jnr-x86asm
-Requires:      objectweb-asm
+Requires:      objectweb-asm4
 
 BuildArch:     noarch
 
