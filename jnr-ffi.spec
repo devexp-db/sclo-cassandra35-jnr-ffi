@@ -3,7 +3,7 @@
 
 Name:     jnr-ffi
 Version:  0.7.10
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 Group:    System Environment/Libraries
 License:  ASL 2.0
@@ -85,6 +85,9 @@ install -pm 644 pom.xml  \
 %{_javadocdir}/%{name}
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Wed Feb 06 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 0.7.10-2
 - Depend on objectweb-asm4, not objectweb-asm.
 
