@@ -3,35 +3,25 @@
 
 Name:     jnr-ffi
 Version:  0.7.10
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
-Group:    System Environment/Libraries
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
 Source0:  https://github.com/jnr/%{name}/tarball/%{version}/jnr-%{name}-%{version}-0-g%{commit_hash}.tar.gz
 
-Patch1:   %{name}-remove-dependency-versions-not-understood-by-fedora-maven.patch
-
-BuildRequires: java-devel
-BuildRequires: jpackage-utils
-BuildRequires: jffi
-BuildRequires: jnr-x86asm
-BuildRequires: junit
-BuildRequires: objectweb-asm4
-
 BuildRequires:  maven-local
-BuildRequires:  maven-clean-plugin
-BuildRequires:  maven-compiler-plugin
-BuildRequires:  maven-dependency-plugin
-BuildRequires:  maven-install-plugin
-BuildRequires:  maven-jar-plugin
-BuildRequires:  maven-javadoc-plugin
+BuildRequires:  mvn(com.github.jnr:jffi)
+BuildRequires:  mvn(com.github.jnr:jnr-x86asm)
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-release-plugin)
+BuildRequires:  mvn(org.ow2.asm:asm)
+BuildRequires:  mvn(org.ow2.asm:asm-analysis)
+BuildRequires:  mvn(org.ow2.asm:asm-commons)
+BuildRequires:  mvn(org.ow2.asm:asm-tree)
+BuildRequires:  mvn(org.ow2.asm:asm-util)
+BuildRequires:  mvn(org.sonatype.oss:oss-parent)
 
-Requires:      java
-Requires:      jpackage-utils
-Requires:      jffi
-Requires:      jnr-x86asm
-Requires:      objectweb-asm4
 
 BuildArch:     noarch
 
@@ -42,49 +32,44 @@ An abstracted interface to invoking native functions from java
 
 %package javadoc
 Summary:        Javadocs for %{name}
-Group:          Documentation
-Requires:       jpackage-utils
 
 %description javadoc
 This package contains the API documentation for %{name}.
 
 %prep
 %setup -q -n jnr-%{name}-%{tag_hash}
-%patch1 -p0
+
+# artifact com.github.jnr:jffi::native: is not available in Fedora
+%pom_xpath_remove "pom:dependency[pom:artifactId[text()='jffi'] and pom:classifier[text()='native']]"
 
 # remove all builtin jars
 find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
 
-%build
 # don't fail on unused parameters... (TODO: send patch upstream)
 sed -i 's|-Werror||' libtest/GNUmakefile
-# TODO: tests still fail, investigate
-mvn-rpmbuild install javadoc:aggregate -DskipTests
+
+%mvn_file :{*} %{name}/@1 @1
+
+%build
+%mvn_build
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_javadir}
-cp -p target/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+%mvn_install
 
-mkdir -p $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-cp -rp target/site/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-
-install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
-install -pm 644 pom.xml  \
-        $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
-
-%add_maven_depmap JPP-%{name}.pom %{name}.jar
-
-%files
+%files -f .mfiles
+%dir %{_javadir}/%{name}
 %doc LICENSE
-%{_javadir}/%{name}.jar
-%{_mavenpomdir}/JPP-%{name}.pom
-%{_mavendepmapfragdir}/%{name}
 
-%files javadoc
+%files javadoc -f .mfiles-javadoc
 %doc LICENSE
-%{_javadocdir}/%{name}
 
 %changelog
+* Wed Sep 25 2013 Michal Srb <msrb@redhat.com> - 0.7.10-4
+- Adapt to current guidelines
+- Remove unneeded patch
+- Enable tests
+- Fix BR
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
