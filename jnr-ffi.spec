@@ -3,7 +3,7 @@
 
 Name:     jnr-ffi
 Version:  0.7.10
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -64,6 +64,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Wed Sep 25 2013 Michal Srb <msrb@redhat.com> - 0.7.10-4
 - Adapt to current guidelines
 - Remove unneeded patch
