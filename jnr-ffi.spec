@@ -1,13 +1,10 @@
-%global commit_hash f28dc0a
-%global tag_hash 929dd3c
-
 Name:     jnr-ffi
-Version:  0.7.10
-Release:  5%{?dist}
+Version:  2.0.1
+Release:  1%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
-Source0:  https://github.com/jnr/%{name}/tarball/%{version}/jnr-%{name}-%{version}-0-g%{commit_hash}.tar.gz
+Source0:  https://github.com/jnr/%{name}/tarball/%{version}/%{name}-%{version}.zip
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
@@ -20,7 +17,7 @@ BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.ow2.asm:asm-tree)
 BuildRequires:  mvn(org.ow2.asm:asm-util)
-BuildRequires:  mvn(org.sonatype.oss:oss-parent)
+BuildRequires:  sonatype-oss-parent
 
 
 BuildArch:     noarch
@@ -37,7 +34,7 @@ Summary:        Javadocs for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%setup -q -n jnr-%{name}-%{tag_hash}
+%setup -q
 
 # artifact com.github.jnr:jffi::native: is not available in Fedora
 %pom_xpath_remove "pom:dependency[pom:artifactId[text()='jffi'] and pom:classifier[text()='native']]"
@@ -64,6 +61,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Mon Jan 05 2015 Mo Morsi <mmorsi@redhat.com> - 2.0.1-1
+- Update to 2.0.1
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
