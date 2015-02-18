@@ -1,6 +1,6 @@
 Name:     jnr-ffi
 Version:  2.0.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -8,6 +8,7 @@ Source0:  https://github.com/jnr/%{name}/tarball/%{version}/%{name}-%{version}.z
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
+BuildRequires:  mvn(com.github.jnr:jffi::native:)
 BuildRequires:  mvn(com.github.jnr:jnr-x86asm)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -36,9 +37,6 @@ This package contains the API documentation for %{name}.
 %prep
 %setup -q
 
-# artifact com.github.jnr:jffi::native: is not available in Fedora
-%pom_xpath_remove "pom:dependency[pom:artifactId[text()='jffi'] and pom:classifier[text()='native']]"
-
 # remove all builtin jars
 find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
 
@@ -61,6 +59,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Wed Feb 18 2015 Michal Srb <msrb@redhat.com> - 2.0.1-2
+- Build with jffi-native
+
 * Mon Jan 05 2015 Mo Morsi <mmorsi@redhat.com> - 2.0.1-1
 - Update to 2.0.1
 
