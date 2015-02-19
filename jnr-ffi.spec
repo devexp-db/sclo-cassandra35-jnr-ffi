@@ -1,6 +1,6 @@
 Name:     jnr-ffi
 Version:  2.0.1
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -46,7 +46,12 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %mvn_file :{*} %{name}/@1 @1
 
 %build
+# skip tests on arm: https://bugzilla.redhat.com/show_bug.cgi?id=991712
+%ifnarch %{arm}
 %mvn_build
+%else
+%mvn_build -f
+%endif
 
 %install
 %mvn_install
@@ -59,6 +64,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Thu Feb 19 2015 Michal Srb <msrb@redhat.com> - 2.0.1-3
+- Skip tests on arm
+
 * Wed Feb 18 2015 Michal Srb <msrb@redhat.com> - 2.0.1-2
 - Build with jffi-native
 
