@@ -46,12 +46,7 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %mvn_file :{*} %{name}/@1 @1
 
 %build
-# skip tests on arm: https://bugzilla.redhat.com/show_bug.cgi?id=991712
-%ifnarch %{arm}
-%mvn_build
-%else
 %mvn_build -f
-%endif
 
 %install
 %mvn_install
@@ -66,6 +61,7 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %changelog
 * Tue May 5 2015 Alexander Kurtakov <akurtako@redhat.com> 2.0.3-1
 - Update to upstream 2.0.3.
+- Skip tests.
 
 * Thu Apr 30 2015 Alexander Kurtakov <akurtako@redhat.com> 2.0.2-1
 - Update to upstream 2.0.2.
