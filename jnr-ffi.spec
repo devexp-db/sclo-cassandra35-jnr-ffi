@@ -1,5 +1,5 @@
 Name:     jnr-ffi
-Version:  2.0.2
+Version:  2.0.3
 Release:  1%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
@@ -64,6 +64,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Tue May 5 2015 Alexander Kurtakov <akurtako@redhat.com> 2.0.3-1
+- Update to upstream 2.0.3.
+
 * Thu Apr 30 2015 Alexander Kurtakov <akurtako@redhat.com> 2.0.2-1
 - Update to upstream 2.0.2.
 
