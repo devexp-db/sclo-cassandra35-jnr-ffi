@@ -1,6 +1,6 @@
 Name:     jnr-ffi
 Version:  2.0.3
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -64,6 +64,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Tue Jun 23 2015 Roland Grunberg <rgrunber@redhat.com> - 2.0.3-4
+- Add missing Import-Package statements to manifest.
+
 * Wed Jun 17 2015 Jeff Johnston <jjohnstn@redhat.com> - 2.0.3-3
 - Add proper MANIFEST.MF.
 
