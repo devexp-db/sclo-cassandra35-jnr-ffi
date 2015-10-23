@@ -1,12 +1,10 @@
 Name:     jnr-ffi
-Version:  2.0.3
-Release:  4%{?dist}
+Version:  2.0.4
+Release:  1%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
 Source0:  https://github.com/jnr/%{name}/archive/%{version}.tar.gz
-Source1:  MANIFEST.MF
-Patch0:   add-manifest.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
@@ -38,9 +36,6 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -q
-cp %{SOURCE1} .
-sed -i -e's/@VERSION/%{version}/g' MANIFEST.MF
-%patch0
 
 # remove all builtin jars
 find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
@@ -64,6 +59,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Fri Oct 23 2015 Alexander Kurtakov <akurtako@redhat.com> 2.0.4-1
+- Update to upstream 2.0.4 and drop unneeded osgification patch/source.
+
 * Tue Jun 23 2015 Roland Grunberg <rgrunber@redhat.com> - 2.0.3-4
 - Add missing Import-Package statements to manifest.
 
