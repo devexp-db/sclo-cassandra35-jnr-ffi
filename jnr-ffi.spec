@@ -1,10 +1,10 @@
 Name:     jnr-ffi
-Version:  2.0.6
+Version:  2.0.9
 Release:  1%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
-Source0:  https://github.com/jnr/%{name}/archive/%{version}.tar.gz
+Source0:  https://github.com/jnr/%{name}/archive/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
@@ -35,7 +35,7 @@ Summary:        Javadocs for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{name}-%{version}
 
 # remove all builtin jars
 find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
@@ -59,6 +59,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Mon Apr 18 2016 Alexander Kurtakov <akurtako@redhat.com> 2.0.9-1
+- Update to upstream 2.0.9 release.
+
 * Fri Feb 5 2016 Alexander Kurtakov <akurtako@redhat.com> 2.0.6-1
 - Update to upstream 2.0.6 release.
 
