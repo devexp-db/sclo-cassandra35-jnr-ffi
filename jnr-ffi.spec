@@ -1,6 +1,6 @@
 Name:     jnr-ffi
 Version:  2.0.9
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -11,8 +11,10 @@ BuildRequires:  mvn(com.github.jnr:jffi)
 BuildRequires:  mvn(com.github.jnr:jffi::native:)
 BuildRequires:  mvn(com.github.jnr:jnr-x86asm)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-release-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
@@ -59,6 +61,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Fri Dec 16 2016 Merlin Mathesius <mmathesi@redhat.com> - 2.0.9-2
+- Add missing BuildRequires to fix FTBFS (BZ#1405595).
+
 * Mon Apr 18 2016 Alexander Kurtakov <akurtako@redhat.com> 2.0.9-1
 - Update to upstream 2.0.9 release.
 
