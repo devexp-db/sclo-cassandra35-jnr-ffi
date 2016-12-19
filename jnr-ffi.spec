@@ -1,6 +1,6 @@
 Name:     jnr-ffi
-Version:  2.0.9
-Release:  2%{?dist}
+Version:  2.1.2
+Release:  1%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -61,6 +61,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Mon Dec 19 2016 Alexander Kurtakov <akurtako@redhat.com> 2.1.2-1
+- Update to upstream 2.1.2.
+
 * Fri Dec 16 2016 Merlin Mathesius <mmathesi@redhat.com> - 2.0.9-2
 - Add missing BuildRequires to fix FTBFS (BZ#1405595).
 
