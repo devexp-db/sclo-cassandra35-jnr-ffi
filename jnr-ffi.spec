@@ -1,11 +1,13 @@
 Name:     jnr-ffi
 Version:  2.1.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
 Source0:  https://github.com/jnr/%{name}/archive/%{name}-%{version}.tar.gz
 
+BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
 BuildRequires:  mvn(com.github.jnr:jffi::native:)
@@ -61,6 +63,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Wed Feb  1 2017 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-2
+- Add missing build-requires on GCC
+
 * Mon Dec 19 2016 Alexander Kurtakov <akurtako@redhat.com> 2.1.2-1
 - Update to upstream 2.1.2.
 
