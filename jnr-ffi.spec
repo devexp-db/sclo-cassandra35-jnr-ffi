@@ -1,6 +1,6 @@
 Name:     jnr-ffi
 Version:  2.1.2
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -8,22 +8,20 @@ Source0:  https://github.com/jnr/%{name}/archive/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
+
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
 BuildRequires:  mvn(com.github.jnr:jffi::native:)
 BuildRequires:  mvn(com.github.jnr:jnr-x86asm)
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-release-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.ow2.asm:asm-tree)
 BuildRequires:  mvn(org.ow2.asm:asm-util)
-BuildRequires:  sonatype-oss-parent
-
+BuildRequires:  mvn(org.sonatype.oss:oss-parent:pom:)
 
 BuildArch:     noarch
 
@@ -63,6 +61,9 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %doc LICENSE
 
 %changelog
+* Mon Feb 06 2017 Michael Simacek <msimacek@redhat.com> - 2.1.2-3
+- Regenerate BRs
+
 * Wed Feb  1 2017 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-2
 - Add missing build-requires on GCC
 
