@@ -1,29 +1,27 @@
-Name:     jnr-ffi
-Version:  2.1.2
-Release:  3%{?dist}
-Summary:  Java Abstracted Foreign Function Layer
-License:  ASL 2.0
-URL:      http://github.com/jnr/%{name}/
-Source0:  https://github.com/jnr/%{name}/archive/%{name}-%{version}.tar.gz
+%{?scl:%scl_package jnr-ffi}
+%{!?scl:%global pkg_name %{name}}
 
-BuildRequires:  gcc
-BuildRequires:  make
+Name:		%{?scl_prefix}jnr-ffi
+Version:	2.1.2
+Release:	4%{?dist}
+Summary:	Java Abstracted Foreign Function Layer
+License:	ASL 2.0
+URL:		http://github.com/jnr/%{pkg_name}/
+Source0:	https://github.com/jnr/%{pkg_name}/archive/%{pkg_name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
-BuildRequires:  mvn(com.github.jnr:jffi)
-BuildRequires:  mvn(com.github.jnr:jffi::native:)
-BuildRequires:  mvn(com.github.jnr:jnr-x86asm)
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
-BuildRequires:  mvn(org.ow2.asm:asm)
-BuildRequires:  mvn(org.ow2.asm:asm-analysis)
-BuildRequires:  mvn(org.ow2.asm:asm-commons)
-BuildRequires:  mvn(org.ow2.asm:asm-tree)
-BuildRequires:  mvn(org.ow2.asm:asm-util)
-BuildRequires:  mvn(org.sonatype.oss:oss-parent:pom:)
-
-BuildArch:     noarch
+BuildRequires:	gcc
+BuildRequires:	make
+BuildRequires:	%{?scl_prefix}jffi
+BuildRequires:	%{?scl_prefix}jffi-native
+BuildRequires:	%{?scl_prefix}jnr-x86asm
+BuildRequires:	%{?scl_prefix_maven}maven-local
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-bundle
+BuildRequires:	%{?scl_prefix_maven}maven-antrun-plugin
+BuildRequires:	%{?scl_prefix_maven}maven-source-plugin
+BuildRequires:	%{?scl_prefix_maven}sonatype-oss-parent
+BuildRequires:	%{?scl_prefix_java_common}objectweb-asm%{?scl:5}
+%{?scl:Requires: %scl_runtime}
+BuildArch:	noarch
 
 # don't obsolete/provide jaffl, gradle is using both jaffl and jnr-ffi...
 
@@ -31,13 +29,13 @@ BuildArch:     noarch
 An abstracted interface to invoking native functions from java
 
 %package javadoc
-Summary:        Javadocs for %{name}
+Summary:	Javadocs for %{name}
 
 %description javadoc
 This package contains the API documentation for %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q -n %{pkg_name}-%{pkg_name}-%{version}
 
 # remove all builtin jars
 find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
@@ -45,22 +43,31 @@ find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
 # don't fail on unused parameters... (TODO: send patch upstream)
 sed -i 's|-Werror||' libtest/GNUmakefile
 
-%mvn_file :{*} %{name}/@1 @1
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
+%mvn_file :{*} %{pkg_name}/@1 @1
+%{?scl:EOF}
 
 %build
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_build -f
+%{?scl:EOF}
 
 %install
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_install
+%{?scl:EOF}
 
 %files -f .mfiles
-%dir %{_javadir}/%{name}
+%dir %{_javadir}/%{pkg_name}
 %doc LICENSE
 
 %files javadoc -f .mfiles-javadoc
 %doc LICENSE
 
 %changelog
+* Mon Feb 13 2017 Tomas Repik <trepik@redhat.com> - 2.1.2-4
+- scl conversion
+
 * Mon Feb 06 2017 Michael Simacek <msimacek@redhat.com> - 2.1.2-3
 - Regenerate BRs
 
